@@ -29,8 +29,8 @@ subscriptions model =
 
 mesh =
     Triangle 
-        [( { position = (vec3 0 0 0) }
-         , { position = (vec3 1 0 0) }
+        [( { position = (vec3 -1 -1 0) }
+         , { position = (vec3 1 -1 0) }
          , { position = (vec3 1 1 0) }
         )]
 

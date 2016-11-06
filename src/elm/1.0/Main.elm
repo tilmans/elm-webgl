@@ -15,6 +15,9 @@ type alias Model =
 
 type Msg = MouseMsg Mouse.Position
 
+offsetLeft = 15.0
+offsetTop = 80.0
+
 main : Program Never
 main =
   Html.program 
@@ -25,11 +28,11 @@ main =
     }
 
 widthFor x =
-    Basics.min 1.0 (x/400)
+    Basics.min 1.0 (Basics.max 0 ((x-offsetLeft)/400))
     
 colorsFor y = 
     let
-        offset = Basics.min 1.0 (y/400)
+        offset = Basics.min 1.0 ( Basics.max 0 ((y-offsetTop)/400) )
         radian = (degrees 360*offset)
         rgbF = toRgb (hsl radian 1 0.5)
         rgbB = toRgb (hsl (radian * -1) 1 0.5)

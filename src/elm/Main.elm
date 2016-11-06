@@ -27,30 +27,50 @@ update msg model =
 subscriptions model =
     Sub.none
 
-mesh =
-    Triangle 
-        [( { position = (vec3 -1 -1 0) }
-         , { position = (vec3 1 -1 0) }
-         , { position = (vec3 1 1 0) }
-        )]
+mesh1 =
+    TriangleStrip 
+        [ {position = (vec3 -1 0 0), color = (vec3 1 1 0)}
+        , {position = (vec3 0 0 0), color = (vec3 1 1 0)}
+        , {position = (vec3 0 1 0), color = (vec3 1 1 0)}
+        , {position = (vec3 -1 1 0), color = (vec3 1 1 0)}
+        , {position = (vec3 -1 0 0), color = (vec3 1 1 0)}
+        ]
+
+mesh2 =
+    TriangleStrip 
+        [ {position = (vec3 -0.95 0.95 0), color = (vec3 1 0 0)}
+        , {position = (vec3 -0.05 0.95 0), color = (vec3 1 0 0)}
+        , {position = (vec3 -0.05 0.05 0), color = (vec3 1 0 0)}
+        , {position = (vec3 -0.95 0.95 0), color = (vec3 1 0 0)}
+        , {position = (vec3 -0.95 0.05 0), color = (vec3 1 0 0)}
+        ]
 
 view model =
     WebGL.toHtml [width 400, height 400]
-    [ render vertexShader fragmentShader mesh {} ]
+    ( [ render vertexShader fragmentShader mesh1 {} ] ++
+        [ render vertexShader fragmentShader mesh2 {} ] )
     
 -- SHADERS
-vertexShader : Shader { attr | position:Vec3 } {} {}
+vertexShader : Shader { attr | position:Vec3, color:Vec3 } {} { vcolor:Vec3}
 vertexShader = [glsl|
     attribute vec3 position;
+    attribute vec3 color;
+    
+    varying vec3 vcolor;
+    
     void main () {
         gl_Position = vec4(position, 1.0);
+        vcolor = color;
     }
 |]
 
-fragmentShader : Shader {} {} {}
+fragmentShader : Shader {} {} { vcolor:Vec3 }
 fragmentShader = [glsl|
     precision mediump float;
+    
+    varying vec3 vcolor;
+    
     void main () {
-        gl_FragColor = vec4(0,0,0,1);
+        gl_FragColor = vec4(vcolor,1);
     }
 |]

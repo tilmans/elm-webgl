@@ -74,7 +74,7 @@ subscriptions model =
 exampleForLocation : Location -> Example
 exampleForLocation location =
     case location.hash of
-        "#P1" ->
+        "#P_1_0" ->
             P_1_0
         "#P_2_0_01" ->
             P_2_0_01
@@ -95,8 +95,8 @@ view model =
     in                    
         div [class "mainflex"] 
             [ div [class "row-top"] 
-                [ a [ href "#P1" ] 
-                    [ img [ (src "static/img/1.0.png")] [] ]
+                [ a [ href "#P_1_0" ] 
+                    [ img [ (src "static/img/P_1_0.png")] [] ]
                 , a [ href "#P_2_0_01" ] 
                     [ img [ (src "static/img/P_2_0_01.png")] [] ]
                 ]  

@@ -24907,7 +24907,7 @@
 							_elm_lang$html$Html$a,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$href('#P1'),
+								_0: _elm_lang$html$Html_Attributes$href('#P_1_0'),
 								_1: {ctor: '[]'}
 							},
 							{
@@ -24916,7 +24916,7 @@
 									_elm_lang$html$Html$img,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$src('static/img/1.0.png'),
+										_0: _elm_lang$html$Html_Attributes$src('static/img/P_1_0.png'),
 										_1: {ctor: '[]'}
 									},
 									{ctor: '[]'}),
@@ -24989,7 +24989,7 @@
 	var _moarwick$elm_webpack_starter$Main$exampleForLocation = function (location) {
 		var _p1 = location.hash;
 		switch (_p1) {
-			case '#P1':
+			case '#P_1_0':
 				return _moarwick$elm_webpack_starter$Main$P_1_0;
 			case '#P_2_0_01':
 				return _moarwick$elm_webpack_starter$Main$P_2_0_01;

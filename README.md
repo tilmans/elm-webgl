@@ -1,5 +1,5 @@
 # Simple Elm WebGL/Webpack project
-Examples of Elm WebGL apps based on examples from "Generative Gestaltung". You can [view the examples online on the project page](https://tilmans.github.io/elm-webgl-generative-design/).
+Examples of Elm WebGL apps based on examples from "Generative Gestaltung". You can [view the examples online on the project page](https://tilmans.github.io/elm-webgl-generative-gestaltung/).
 
 Based on elm-webpack-starter
 

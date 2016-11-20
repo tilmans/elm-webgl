@@ -1,33 +1,30 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
-{-import P_1_0 exposing (..)-}
+import Html.Events exposing (onClick)
+import P_1_0 exposing (..)
 import Mouse
-import Window
 
 type alias Model = 
     { example: Example
-    , size: Window.Size
-{-    , p1: P_1_0.Model    -}
+    , p1: P_1_0.Model    
     }
 
 type Msg 
     = MouseMsg Mouse.Position
-    | Resize Window.Size
     | NoOp 
-    {- | SelectP1 -}
+    | SelectP1
     
 type Example 
     = None 
-    {-}| P_1_0-}
+    | P_1_0
 
 init : (Model, Cmd Msg)
 init = 
     (
         { example=None
-{-        , p1=P_1_0.init 0 15 -}
-        , size=Window.Size 0 0
+        , p1=P_1_0.init 10 100
         }
-    , Cmd.none {-Task.perform Resize Window.size -}
+    , Cmd.none
     )
 
 main : Program Never Model Msg
@@ -46,29 +43,14 @@ update msg model =
             case model.example of
                 None ->
                     (model, Cmd.none)
-{-}                P_1_0 ->
+                P_1_0 ->
                     let 
                         (updateModel, updateCmd) = 
                             P_1_0.update (P_1_0.MouseMsg pos) model.p1
                     in
-                        ({model|p1=updateModel}, updateCmd) -}
-        Resize size ->
-            let 
-                _ = Debug.log "Resize" size
-                width = size.width
-                height = size.height
-                left = 
-                    if width < 768 then
-                        15
-                    else if width < 992 then
-                        (width - 750) // 2 + 15 
-                    else 
-                        (width - 750) // 2 + 100
-                {- p1 = model.p1                       -}
-            in
-                (model{- p1={p1|offsetLeft=left} -}, Cmd.none) 
-        {- SelectP1 ->
-            ({model|example=P_1_0}, Cmd.none) -}
+                        ({model|p1=updateModel}, updateCmd)
+        SelectP1 ->
+            ({model|example=P_1_0}, Cmd.none)
         NoOp ->
             (model, Cmd.none)
 
@@ -76,7 +58,6 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch 
         [ Mouse.moves MouseMsg
-        , Window.resizes Resize
         ]
     
 
@@ -87,12 +68,12 @@ view model =
             case model.example of
                 None ->
                     div [class "placeholder"] [text "Select an example"]
-{-}                P_1_0 ->
-                    P_1_0.view model.p1 -}
+                P_1_0 ->
+                    P_1_0.view model.p1
     in                    
         div [class "mainflex"] 
             [ div [class "row-top"] 
-                [ a [{- onClick SelectP1 -}] 
+                [ a [ onClick SelectP1 ] 
                     [ img [ (src "static/img/1.0.png")] [] ]
                 ]  
             , div [class "row-bottom"] [ ex ]

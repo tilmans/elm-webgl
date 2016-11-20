@@ -2,7 +2,6 @@ module P_1_0 exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.App as Html
 import WebGL exposing (toHtml)
 import Mouse
 import Color exposing (..)

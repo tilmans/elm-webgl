@@ -22,6 +22,7 @@
 .row-bottom {
     flex: 2;
     display: flex;
+    padding-left: 10px;
 }
 
 .placeholder {
@@ -32,5 +33,5 @@
 canvas {
     width: 400px;
     height: 400px;
-    padding-left: 10px;
 }
+

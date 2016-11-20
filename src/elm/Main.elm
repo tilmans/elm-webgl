@@ -1,35 +1,40 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
-import P_1_0 exposing (..)
 import Mouse
+import Navigation exposing (..)
+
+import P_1_0 exposing (..)
+import P_2_0_01 exposing (..)
 
 type alias Model = 
     { example: Example
-    , p1: P_1_0.Model    
+    , p1: P_1_0.Model   
+    , p2: P_2_0_01.Model 
     }
 
 type Msg 
     = MouseMsg Mouse.Position
+    | UrlChange Navigation.Location
     | NoOp 
-    | SelectP1
     
 type Example 
     = None 
     | P_1_0
+    | P_2_0_01
 
-init : (Model, Cmd Msg)
-init = 
+init : Location -> (Model, Cmd Msg)
+init location = 
     (
-        { example=None
+        { example=(exampleForLocation location)
         , p1=P_1_0.init 10 100
+        , p2=P_2_0_01.init 10 100
         }
     , Cmd.none
     )
 
 main : Program Never Model Msg
 main =
-  Html.program 
+  Navigation.program UrlChange
     { init = init
     , view = view
     , subscriptions = subscriptions
@@ -39,6 +44,8 @@ main =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        UrlChange location ->
+            ({model|example=(exampleForLocation location)}, Cmd.none)
         MouseMsg pos ->            
             case model.example of
                 None ->
@@ -49,8 +56,12 @@ update msg model =
                             P_1_0.update (P_1_0.MouseMsg pos) model.p1
                     in
                         ({model|p1=updateModel}, updateCmd)
-        SelectP1 ->
-            ({model|example=P_1_0}, Cmd.none)
+                P_2_0_01 ->
+                    let 
+                        (updateModel, updateCmd) =
+                            P_2_0_01.update (P_2_0_01.MouseMsg pos) model.p2
+                    in 
+                        ({model|p2=updateModel}, updateCmd)
         NoOp ->
             (model, Cmd.none)
 
@@ -60,6 +71,15 @@ subscriptions model =
         [ Mouse.moves MouseMsg
         ]
     
+exampleForLocation : Location -> Example
+exampleForLocation location =
+    case location.hash of
+        "#P1" ->
+            P_1_0
+        "#P_2_0_01" ->
+            P_2_0_01
+        _ ->
+            None
 
 view : Model -> Html Msg
 view model =
@@ -70,11 +90,15 @@ view model =
                     div [class "placeholder"] [text "Select an example"]
                 P_1_0 ->
                     P_1_0.view model.p1
+                P_2_0_01 ->
+                    P_2_0_01.view model.p2
     in                    
         div [class "mainflex"] 
             [ div [class "row-top"] 
-                [ a [ onClick SelectP1 ] 
+                [ a [ href "#P1" ] 
                     [ img [ (src "static/img/1.0.png")] [] ]
+                , a [ href "#P_2_0_01" ] 
+                    [ img [ (src "static/img/P_2_0_01.png")] [] ]
                 ]  
             , div [class "row-bottom"] [ ex ]
             ]

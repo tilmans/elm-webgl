@@ -1,4 +1,30 @@
-@grid-float-breakpoint:     500px;
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss';
-@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+.mainflex, #main, html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.mainflex {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-top {
+    flex-basis: 100px;
+}
+
+.row-top > a > img {
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.row-bottom {
+    flex: 2;
+    display: flex;
+}
+
+.placeholder {
+    padding-left: 10px;
+    font-family: "Helvetica"
+}

@@ -24,9 +24,12 @@ update msg model =
     case msg of 
         MouseMsg position ->
             let
-                newRes = (toFloat (position.y + model.offsetTop)) / 400 * 100
-                newRad = (toFloat (position.x + model.offsetLeft)) / 2
-                newStroke = (toFloat (position.y + model.offsetTop)) / 150
+                centeredY = abs(position.y - model.offsetTop)
+                centeredX = abs(position.x - model.offsetLeft - 200)
+                newRes = (toFloat centeredY) / 400 * 100
+                newRad = toFloat centeredX
+                newStroke = (toFloat centeredX) / 15
+                _=Debug.log "Y" centeredY
             in
                 ( {model|resolution=newRes,radius=newRad,stroke=newStroke}
                 , Cmd.none

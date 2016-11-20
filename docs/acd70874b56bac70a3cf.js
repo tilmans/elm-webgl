@@ -24835,10 +24835,13 @@
 	var _moarwick$elm_webpack_starter$P_2_0_01$update = F2(
 		function (msg, model) {
 			var _p0 = msg;
-			var _p1 = _p0._0;
-			var newStroke = _elm_lang$core$Basics$toFloat(_p1.y + model.offsetTop) / 150;
-			var newRad = _elm_lang$core$Basics$toFloat(_p1.x + model.offsetLeft) / 2;
-			var newRes = (_elm_lang$core$Basics$toFloat(_p1.y + model.offsetTop) / 400) * 100;
+			var _p2 = _p0._0;
+			var centeredX = _elm_lang$core$Basics$abs((_p2.x - model.offsetLeft) - 200);
+			var newRad = _elm_lang$core$Basics$toFloat(centeredX);
+			var newStroke = _elm_lang$core$Basics$toFloat(centeredX) / 15;
+			var centeredY = _elm_lang$core$Basics$abs(_p2.y - model.offsetTop);
+			var newRes = (_elm_lang$core$Basics$toFloat(centeredY) / 400) * 100;
+			var _p1 = A2(_elm_lang$core$Debug$log, 'Y', centeredY);
 			return {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
